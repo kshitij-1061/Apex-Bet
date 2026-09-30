@@ -7,6 +7,8 @@ import BetSlip from './components/BetSlip';
 import UserDashboard from './components/UserDashboard';
 import { RefreshCw } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const App = () => {
   const { matches, authenticateSocket } = useSocket();
   const [user, setUser] = useState(null);
@@ -25,7 +27,7 @@ const App = () => {
       }
 
       try {
-        const res = await fetch('http://localhost:5000/api/auth/me', {
+        const res = await fetch(`${API_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

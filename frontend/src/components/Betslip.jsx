@@ -40,9 +40,9 @@ const BetSlip = ({ activeBetslip, onClear, userToken, onBetPlaced, walletBalance
       setError('Insufficient wallet balance to place this bet.');
       return;
     }
-    setLoading(true);
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     try {
-      const response = await fetch('http://localhost:5000/api/bets/place', {
+      const response = await fetch(`${API_URL}/api/bets/place`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

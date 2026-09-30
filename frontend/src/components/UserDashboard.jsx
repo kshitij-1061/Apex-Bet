@@ -9,17 +9,19 @@ const UserDashboard = ({ userToken, walletBalance, onWalletUpdate }) => {
   const [walletLoading, setWalletLoading] = useState(false);
   const [walletMessage, setWalletMessage] = useState({ text: '', type: '' });
   const [loadingHistory, setLoadingHistory] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const fetchHistory = async () => {
     setLoadingHistory(true);
     try {
       // Fetch Bets
-      const betsRes = await fetch('http://localhost:5000/api/bets', {
+      const betsRes = await fetch(`${API_URL}/api/bets`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
       const betsData = await betsRes.json();
       if (betsRes.ok) setBets(betsData);
       // Fetch Transactions
-      const txRes = await fetch('http://localhost:5000/api/wallet/transactions', {
+      const txRes = await fetch(`${API_URL}/api/wallet/transactions`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
       const txData = await txRes.json();
@@ -45,7 +47,7 @@ const UserDashboard = ({ userToken, walletBalance, onWalletUpdate }) => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/wallet/${action}`, {
+      const response = await fetch(`${API_URL}/api/wallet/${action}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
